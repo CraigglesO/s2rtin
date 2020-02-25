@@ -1,0 +1,8 @@
+{
+  "compact": true,
+  "minified": true,
+  "sourceMap": true,
+  "comments": false,
+  "presets": [],
+  "plugins": []
+}
