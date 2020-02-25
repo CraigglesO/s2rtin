@@ -185,9 +185,9 @@ class Tile {
 }
 
 function terrainToGrid (image) {
-  const gridSize = image.width + 1
-  const terrain = new Float32Array(gridSize * gridSize)
   const tileSize = image.width
+  const gridSize = tileSize + 1
+  const terrain = new Float32Array(gridSize * gridSize)
   // decode terrain values
   for (let y = 0; y < tileSize; y++) {
     for (let x = 0; x < tileSize; x++) {
