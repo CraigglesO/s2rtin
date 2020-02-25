@@ -1,4 +1,6 @@
 // Real-time Right-Triangulated Irregular Networks for S2 Geometry
+const RADIUS = 6371008.8
+
 class S2Rtin {
   // gridSize
   // numTriangles
@@ -52,10 +54,10 @@ class S2Rtin {
     return new Tile(terrain, this)
   }
 
-  // 7842KM is the rough edge length of one S2 cell at zoom 0 (a face essentially)
+  // 7842KM is the rough edge length of one S2 cell at zoom 0 (a face or 1/4 the circumferance of the earth)
   // this is a quick and dirty way of approximating an appropriate maxError for generating a mesh
   approximateBestError (zoom) {
-    return Math.floor((7842000 / (1 << zoom) / (this.gridSize - 1)) / 2)
+    return Math.floor(7842000 / (1 << zoom) / (this.gridSize - 1))
   }
 }
 
@@ -109,7 +111,7 @@ class Tile {
 
   getMesh (maxError = 0) {
     const { gridSize: size, indices } = this.martini
-    const { errors } = this
+    const { terrain, errors } = this
     let numVertices = 0
     let numTriangles = 0
     const max = size - 1
@@ -140,6 +142,7 @@ class Tile {
     countElements(max, max, 0, 0, 0, max)
 
     const vertices = new Float32Array(numVertices * 2)
+    const radii = new Float32Array(numVertices)
     const triangles = new Uint32Array(numTriangles * 3)
     let triIndex = 0
 
@@ -159,12 +162,15 @@ class Tile {
 
         vertices[2 * a] = ax / max
         vertices[2 * a + 1] = ay / max
+        radii[a] = terrain[ay * size + ax] / RADIUS
 
         vertices[2 * b] = bx / max
         vertices[2 * b + 1] = by / max
+        radii[b] = terrain[by * size + bx] / RADIUS
 
         vertices[2 * c] = cx / max
         vertices[2 * c + 1] = cy / max
+        radii[c] = terrain[cy * size + cx] / RADIUS
 
         triangles[triIndex++] = a
         triangles[triIndex++] = b
@@ -174,7 +180,7 @@ class Tile {
     processTriangle(0, 0, max, max, max, 0)
     processTriangle(max, max, 0, 0, 0, max)
 
-    return { vertices, triangles }
+    return { vertices, triangles, radii }
   }
 }
 
