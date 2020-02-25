@@ -9,7 +9,7 @@ const fuji = PNG.sync.read(fs.readFileSync(`./fixtures/s2/${ZOOM}.png`))
 const terrain = terrainToGrid(fuji)
 
 console.time('rtin')
-const s2rtin = new S2Rtin(fuji.width + 1)
+const s2rtin = new S2Rtin(fuji.width)
 const tile = s2rtin.createTile(terrain)
 const approxBestError = s2rtin.approximateBestError(ZOOM)
 // console.log('approxBestError', approxBestError)

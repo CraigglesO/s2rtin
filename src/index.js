@@ -2,15 +2,8 @@
 const RADIUS = 6371008.8
 
 class S2Rtin {
-  // gridSize
-  // numTriangles
-  // numParentTriangles
-  // indices
-  // coords
-  constructor (gridSize = 513) {
-    this.gridSize = gridSize
-    const tileSize = gridSize - 1
-    if (tileSize & (tileSize - 1)) throw new Error('Expected grid size to be 2^n+1, got: ', tileSize)
+  constructor (tileSize = 512) {
+    this.gridSize = tileSize + 1
 
     this.numTriangles = tileSize * tileSize * 2 - 2
     this.numParentTriangles = this.numTriangles - tileSize * tileSize
@@ -51,6 +44,7 @@ class S2Rtin {
   }
 
   createTile (terrain) {
+    if (terrain.length !== this.gridSize * this.gridSize) throw new Error(`incompatable dimension. Image must be of size: ${this.gridSize - 1}`)
     return new Tile(terrain, this)
   }
 
@@ -62,9 +56,6 @@ class S2Rtin {
 }
 
 class Tile {
-  // terrain
-  // martini
-  // errors
   constructor (terrain, martini) {
     const size = martini.gridSize
     if (terrain.length !== size * size) {
