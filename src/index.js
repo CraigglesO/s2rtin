@@ -164,8 +164,8 @@ class Tile {
         radii[c] = terrain[cy * size + cx] / RADIUS
 
         triangles[triIndex++] = a
-        triangles[triIndex++] = c
         triangles[triIndex++] = b
+        triangles[triIndex++] = c
       }
     }
     processTriangle(0, 0, max, max, max, 0)
