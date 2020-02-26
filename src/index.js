@@ -164,8 +164,8 @@ class Tile {
         radii[c] = terrain[cy * size + cx] / RADIUS
 
         triangles[triIndex++] = a
-        triangles[triIndex++] = b
         triangles[triIndex++] = c
+        triangles[triIndex++] = b
       }
     }
     processTriangle(0, 0, max, max, max, 0)
@@ -176,16 +176,17 @@ class Tile {
 }
 
 function terrainToGrid (image) {
-  const tileSize = image.width
+  const { width, data } = image
+  const tileSize = width
   const gridSize = tileSize + 1
   const terrain = new Float32Array(gridSize * gridSize)
   // decode terrain values
   for (let y = 0; y < tileSize; y++) {
     for (let x = 0; x < tileSize; x++) {
       const k = (y * tileSize + x) * 4
-      const r = image.data[k + 0]
-      const g = image.data[k + 1]
-      const b = image.data[k + 2]
+      const r = data[k + 0]
+      const g = data[k + 1]
+      const b = data[k + 2]
       terrain[y * gridSize + x] = (r * 256 * 256 + g * 256 + b) / 10 - 10000
     }
   }
