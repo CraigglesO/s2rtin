@@ -1,6 +1,6 @@
 {
   "name": "s2rtin",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "Real-time Right-Triangulated Irregular Networks for S2 Geometry.",
   "main": "lib/index.js",
   "scripts": {
