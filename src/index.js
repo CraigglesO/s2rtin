@@ -152,15 +152,15 @@ class Tile {
         const c = indices[cy * size + cx] - 1
 
         vertices[2 * a] = ax / max
-        vertices[2 * a + 1] = 1 - (ay / max)
+        vertices[2 * a + 1] = ay / max
         radii[a] = terrain[ay * size + ax] / RADIUS
 
         vertices[2 * b] = bx / max
-        vertices[2 * b + 1] = 1 - (by / max)
+        vertices[2 * b + 1] = by / max
         radii[b] = terrain[by * size + bx] / RADIUS
 
         vertices[2 * c] = cx / max
-        vertices[2 * c + 1] = 1 - (cy / max)
+        vertices[2 * c + 1] = cy / max
         radii[c] = terrain[cy * size + cx] / RADIUS
 
         triangles[triIndex++] = a
