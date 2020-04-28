@@ -201,5 +201,5 @@ function terrainToGrid (image) {
   return terrain
 }
 
-exports.default = S2Rtin
+exports.S2Rtin = S2Rtin
 exports.terrainToGrid = terrainToGrid
