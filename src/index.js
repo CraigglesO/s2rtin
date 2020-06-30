@@ -1,5 +1,4 @@
 // Real-time Right-Triangulated Irregular Networks for S2 Geometry
-const RADIUS = 6371008.8
 
 class S2Rtin {
   constructor (tileSize = 512) {
@@ -100,7 +99,7 @@ class Tile {
     }
   }
 
-  getMesh (maxError = 0) {
+  getMesh (maxError = 0, extent = 4096, radius = 6371008.8) {
     const { gridSize: size, indices } = this.martini
     const { terrain, errors } = this
     let numVertices = 0
@@ -132,7 +131,7 @@ class Tile {
     countElements(0, 0, max, max, max, 0)
     countElements(max, max, 0, 0, 0, max)
 
-    const vertices = new Float32Array(numVertices * 2)
+    const vertices = new Int16Array(numVertices * 2)
     const radii = new Float32Array(numVertices)
     const triangles = new Uint32Array(numTriangles * 3)
     let triIndex = 0
@@ -151,17 +150,17 @@ class Tile {
         const b = indices[by * size + bx] - 1
         const c = indices[cy * size + cx] - 1
 
-        vertices[2 * a] = ax / max
-        vertices[2 * a + 1] = 1 - (ay / max)
-        radii[a] = terrain[ay * size + ax] / RADIUS
+        vertices[2 * a] = Math.round(ax / max * extent)
+        vertices[2 * a + 1] = Math.round((1 - (ay / max)) * extent)
+        radii[a] = 1 + terrain[ay * size + ax] / radius
 
-        vertices[2 * b] = bx / max
-        vertices[2 * b + 1] = 1 - (by / max)
-        radii[b] = terrain[by * size + bx] / RADIUS
+        vertices[2 * b] = Math.round(bx / max * extent)
+        vertices[2 * b + 1] = Math.round((1 - (by / max)) * extent)
+        radii[b] = 1 + terrain[by * size + bx] / radius
 
-        vertices[2 * c] = cx / max
-        vertices[2 * c + 1] = 1 - (cy / max)
-        radii[c] = terrain[cy * size + cx] / RADIUS
+        vertices[2 * c] = Math.round(cx / max * extent)
+        vertices[2 * c + 1] = Math.round((1 - (cy / max)) * extent)
+        radii[c] = 1 + terrain[cy * size + cx] / radius
 
         triangles[triIndex++] = a
         triangles[triIndex++] = b
