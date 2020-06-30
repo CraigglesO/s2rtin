@@ -152,15 +152,15 @@ class Tile {
 
         vertices[2 * a] = Math.round(ax / max * extent)
         vertices[2 * a + 1] = Math.round((1 - (ay / max)) * extent)
-        radii[a] = 1 + terrain[ay * size + ax] / radius
+        radii[a] = terrain[ay * size + ax] / radius
 
         vertices[2 * b] = Math.round(bx / max * extent)
         vertices[2 * b + 1] = Math.round((1 - (by / max)) * extent)
-        radii[b] = 1 + terrain[by * size + bx] / radius
+        radii[b] = terrain[by * size + bx] / radius
 
         vertices[2 * c] = Math.round(cx / max * extent)
         vertices[2 * c + 1] = Math.round((1 - (cy / max)) * extent)
-        radii[c] = 1 + terrain[cy * size + cx] / radius
+        radii[c] = terrain[cy * size + cx] / radius
 
         triangles[triIndex++] = a
         triangles[triIndex++] = b
