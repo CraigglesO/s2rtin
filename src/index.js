@@ -50,7 +50,15 @@ class S2Rtin {
   // 7842KM is the rough edge length of one S2 cell at zoom 0 (a face or 1/4 the circumferance of the earth)
   // this is a quick and dirty way of approximating an appropriate maxError for generating a mesh
   approximateBestError (zoom) {
-    return Math.floor(7842000 / (1 << zoom) / (this.gridSize - 1))
+    if (zoom >= 14) {
+      switch (zoom) {
+        case 14: return 1.6
+        case 15: return 1.5
+        case 16: return 1.2
+        case 17:
+        default: return 1
+      }
+    } else { return Math.floor(7842000 / (1 << zoom) / (this.gridSize - 1)) }
   }
 }
 
