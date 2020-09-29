@@ -9,12 +9,9 @@
 
 ## About
 
-**Real-time Right-Triangulated Irregular Networks for S2 Geometry.**
+**Real-time Right-Triangulated Irregular Networks for S2 Projected RGB Elevation Encoded Tiles.**
 
 A rework of Vladimir Agafonkin's [martini](https://github.com/mapbox/martini).
-
-This module will store vertices in ST space and give you an approximation
-of best error for tiles zoom.
 
 
 

@@ -1,5 +1,4 @@
-// Real-time Right-Triangulated Irregular Networks for S2 Geometry
-
+// Real-time Right-Triangulated Irregular Networks for S2 Projected RGB Elevation Encoded Tiles
 class S2Rtin {
   constructor (tileSize = 512) {
     this.gridSize = tileSize + 1
@@ -194,7 +193,7 @@ function terrainToGrid (image) {
       const r = data[k + 0]
       const g = data[k + 1]
       const b = data[k + 2]
-      terrain[y * gridSize + x] = (r * 256 * 256 + g * 256 + b) / 10 - 10000
+      terrain[y * gridSize + x] = ((r << 16) + (g << 8) + b) / 100 - 83886
     }
   }
   // backfill right and bottom borders
