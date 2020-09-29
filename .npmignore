@@ -2,3 +2,5 @@ src
 test
 fixtures
 test.js
+newEncodeDecode.js
+convertDEM.js

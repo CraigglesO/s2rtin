@@ -1,4 +1,4 @@
-# s2rtin [![travis][travis-image]][travis-url] [![npm][npm-image]][npm-url] [![downloads][downloads-image]][downloads-url] [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+# s2rtin [![travis][travis-image]][travis-url] [![npm][npm-image]][npm-url] [![downloads][downloads-image]][downloads-url] [![min](https://badgen.net/bundlephobia/min/s2rtin)](https://bundlephobia.com/result?p=s2rtin) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 [travis-image]: https://travis-ci.org/regia-corporation/s2rtin.svg?branch=master
 [travis-url]: https://travis-ci.org/regia-corporation/s2rtin
