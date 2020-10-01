@@ -193,7 +193,12 @@ function terrainToGrid (image) {
       const r = data[k + 0]
       const g = data[k + 1]
       const b = data[k + 2]
-      terrain[y * gridSize + x] = ((r << 16) + (g << 8) + b) / 100 - 83886
+      const precision = 255 - data[k + 3]
+      // decode
+      const multiplier = Math.pow(10, precision)
+      const shift = Math.floor(8388608 / multiplier)
+
+      terrain[y * gridSize + x] = ((r << 16) + (g << 8) + b) / multiplier - shift
     }
   }
   // backfill right and bottom borders

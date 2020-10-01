@@ -1,6 +1,6 @@
 {
   "name": "s2rtin",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "Real-time Right-Triangulated Irregular Networks for S2 Projected RGB Elevation Encoded Tiles",
   "main": "lib/index.js",
   "scripts": {

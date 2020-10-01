@@ -10,19 +10,46 @@
 //   const b = elev & 255 // get blue
 //   return [r, g, b]
 // }
-function encode (elev) {
-  elev = Math.round((elev + 83886) * 100)
 
-  return [(elev >> 16) & 255, (elev >> 8) & 255, elev & 255]
+
+// function encode (elev, precision = 2) {
+//   elev = Math.round((elev + 83886) * Math.pow(10, precision))
+//
+//   return [(elev >> 16) & 255, (elev >> 8) & 255, elev & 255]
+// }
+//
+// function decode (r, g, b, precision = 2) {
+//   return ((r << 16) + (g << 8) + b) / Math.pow(10, precision) - 83886
+// }
+
+// 16777216 (1 << 24)
+// 8388608 (16777216 / 2)
+
+// assuming a precions of 2, than our largest number can be 83886
+
+function encode (elev, precision = 2) {
+  const multiplier = Math.pow(10, precision)
+  const shift = Math.floor(8388608 / multiplier)
+  elev = Math.round((elev + shift) * multiplier)
+
+  return [(elev >> 16) & 255, (elev >> 8) & 255, elev & 255, 255 - precision]
 }
 
-function decode (r, g, b) {
-  return ((r << 16) + (g << 8) + b) / 100 - 83886
+function decode (r, g, b, precision = 2) {
+  const multiplier = Math.pow(10, precision)
+  const shift = Math.floor(8388608 / multiplier)
+
+  return ((r << 16) + (g << 8) + b) / multiplier - shift
 }
 
-const elevation = 83886.01
-const e = encode(elevation)
-const d = decode(e[0], e[1], e[2])
+// range: [-8388608, 8388607)
+// 8388607 -> considered a "dead" pixel, meaning it's not valid and should be ignored
+
+// consider: 4 decimal places 838.8607
+
+const elevation = 838820.3
+const e = encode(elevation, 1)
+const d = decode(e[0], e[1], e[2], 255 - e[3])
 
 console.log('original', elevation)
 console.log('encoding', e)
